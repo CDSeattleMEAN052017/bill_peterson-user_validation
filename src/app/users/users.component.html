@@ -1,0 +1,21 @@
+<h2>User Validation</h2>
+
+
+<form #formData="ngForm">
+	First Name:<input type="text" name="first_name" required minlength="2" [(ngModel)]="newUser.first_name" #first_name="ngModel"><span *ngIf="first_name.dirty"><span *ngIf="first_name.errors?.required">First Name field is required.</span><span *ngIf="first_name.errors?.minlength">First Name Length must be great than 2.</span></span><br />
+
+	Last Name:<input type="text" name="last_name" required minlength="2" [(ngModel)]="newUser.last_name" #last_name="ngModel"><span *ngIf="last_name.dirty"><span *ngIf="last_name.errors?.required">Last Name field is required.</span><span *ngIf="last_name.errors?.minlength">Last Name Length must be great than 2.</span></span><br />
+
+	Email:<input type="text" name="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" [(ngModel)]="newUser.email" #email="ngModel"><span *ngIf="email.dirty"><span *ngIf="email.errors?.required">Email field is required.</span><span *ngIf="email.errors?.pattern">Invalid email address.</span></span><br />
+
+	Password:<input type="text" name="password" required minlength="8" [(ngModel)]="newUser.password" #password="ngModel"><span *ngIf="password.dirty"><span *ngIf="password.errors?.required">Password field is required.</span><span *ngIf="password.errors?.minlength">Password Length must be great than 8.</span></span><br />
+
+	Confirm Password:<input type="text" name="confirm_password" required minlength="8" [(ngModel)]="confirm_password"><span *ngIf="confirm_password?.length > 0 && (confirm_password != newUser.password)">Password and Confirm Password fields must match</span><br />
+
+	State:<select name="state" required [(ngModel)]="newUser.state" #state="ngModel">
+		<option value="ND">ND</option>
+		<option value="WA">WA</option>
+	</select><span *ngIf="state.dirty"><span *ngIf="state.errors?.required">State field is required.</span></span><br />
+
+	<input type="submit" name="submit" value="Submit" [disabled]="!formData.form.valid || confirm_password != newUser.password">
+</form>
